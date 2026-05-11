@@ -20,11 +20,11 @@ class _MainAppState extends State<MainApp> {
   int currentSelection = 2;
 
   List<BottomNavigationBarItem> items = [
-    BottomNavigationBarItem(icon: Icon(Icons.camera_alt_sharp), label: "Home"),
+    BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Carrinho"),
 
     BottomNavigationBarItem(
-      icon: Icon(Icons.add_business_sharp),
-      label: "Products",
+      icon: Icon(Icons.history_sharp),
+      label: "Histórico",
     ),
 
     BottomNavigationBarItem(
@@ -40,9 +40,6 @@ class _MainAppState extends State<MainApp> {
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentSelection,
           items: items,
-
-          showSelectedLabels: true,
-          showUnselectedLabels: false,
           onTap: (index) {
             setState(() {
               currentSelection = index;
@@ -85,11 +82,10 @@ class _ScannerPageState extends State<ScannerPage> {
   List<Product> rawList = [];
   Map<Product, int> itemsOrders = {};
 
-
-  void addItem(Product prod){
-    if(itemsOrders.containsKey(prod)){
+  void addItem(Product prod) {
+    if (itemsOrders.containsKey(prod)) {
       itemsOrders[prod] = (itemsOrders[prod] ?? 0) + 1;
-    } else{
+    } else {
       itemsOrders[prod] = 1;
     }
 
@@ -175,15 +171,22 @@ class _ScannerPageState extends State<ScannerPage> {
                   for (Product p in itemsOrders.keys)
                     DataRow(
                       cells: [
-                        DataCell(Center(child: Text(itemsOrders[p].toString()))),
+                        DataCell(
+                          Center(child: Text(itemsOrders[p].toString())),
+                        ),
                         DataCell(Center(child: Text(p.productName))),
-                        DataCell(Center(child: Text(p.productPrice.toString()))),
-                        DataCell(Center(child: Text("${p.productPrice * itemsOrders[p]!}"))),
+                        DataCell(
+                          Center(child: Text(p.productPrice.toString())),
+                        ),
+                        DataCell(
+                          Center(
+                            child: Text("${p.productPrice * itemsOrders[p]!}"),
+                          ),
+                        ),
                       ],
                     ),
                   DataRow(
                     cells: [
-            
                       DataCell(Text("")),
                       DataCell(Text("")),
                       DataCell(
