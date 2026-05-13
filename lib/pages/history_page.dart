@@ -2,6 +2,7 @@ import 'package:ciebp_leitor/data/sell_history.dart';
 import 'package:ciebp_leitor/model/history.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ciebp_leitor/dialog/confirm_dialog.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -37,13 +38,20 @@ class _HistoryPageState extends State<HistoryPage> {
         children: [
           historyTable(),
           ElevatedButton(
-            onPressed: () {
-              SellHistory sell = SellHistory();
-              sell.clearHistory();
+            onPressed: () async {
+              bool res = await showConfirmDialog(
+                context,
+                "Atenção!",
+                "Você está prestes a excluir todo o histórico de venda. Essa ação é irreversível. Tem certeza que deseja continuar?",
+              );
 
-              setState(() {
-                getList();
-              });
+              print(res);
+              // SellHistory sell = SellHistory();
+              // sell.clearHistory();
+
+              // setState(() {
+              //   getList();
+              // });
             },
             child: Text("Limpar"),
           ),
