@@ -1,9 +1,18 @@
 import 'package:ciebp_leitor/pages/checkout_page.dart';
 import 'package:ciebp_leitor/pages/database_page.dart';
 import 'package:ciebp_leitor/pages/history_page.dart';
+import 'package:ciebp_leitor/util/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.leanBack,
+    overlays: [SystemUiOverlay.top],
+  );
+
   runApp(MainApp());
 }
 
@@ -34,8 +43,13 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
+          elevation: 100,
+          backgroundColor: Colors.white,
+          selectedItemColor: AppColors.spaceIndigo,
+          unselectedItemColor: AppColors.thistle,
           currentIndex: currentSelection,
           items: items,
           onTap: (index) {

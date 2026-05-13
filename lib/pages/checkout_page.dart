@@ -2,6 +2,7 @@ import 'package:ciebp_leitor/data/sell_history.dart';
 import 'package:ciebp_leitor/file_handler.dart';
 import 'package:ciebp_leitor/model/history.dart';
 import 'package:ciebp_leitor/product.dart';
+import 'package:ciebp_leitor/util/money_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -131,13 +132,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                 DataCell(Center(child: Text(p.productName))),
                                 DataCell(
                                   Center(
-                                    child: Text(p.productPrice.toString()),
+                                    child: Text(
+                                      MoneyFormatter.brl(p.productPrice),
+                                    ),
                                   ),
                                 ),
                                 DataCell(
                                   Center(
                                     child: Text(
-                                      "${p.productPrice * itemsOrders[p]!}",
+                                      MoneyFormatter.brl(
+                                        p.productPrice * itemsOrders[p]!,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -155,7 +160,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
               Column(
                 children: [
                   Text(
-                    "TOTAL: R\$ ${calculateTotal()}",
+                    MoneyFormatter.brl(calculateTotal()),
                     style: TextStyle(
                       fontWeight: FontWeight(900),
                       color: Colors.green,
@@ -164,6 +169,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
+                      if (calculateTotal() <= 0) {
+                        return;
+                      }
                       SellHistory history = SellHistory();
                       await history.saveHistory(
                         History(

@@ -1,7 +1,9 @@
 import 'package:ciebp_leitor/file_handler.dart';
 import 'package:ciebp_leitor/pop_up_window.dart';
 import 'package:ciebp_leitor/product.dart';
+import 'package:ciebp_leitor/util/money_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class DatabasePage extends StatefulWidget {
@@ -170,7 +172,9 @@ class _DatabasePageState extends State<DatabasePage> {
                   cells: [
                     DataCell(Center(child: Text(p.barCode))),
                     DataCell(Center(child: Text(p.productName))),
-                    DataCell(Center(child: Text(p.productPrice.toString()))),
+                    DataCell(
+                      Center(child: Text(MoneyFormatter.brl(p.productPrice))),
+                    ),
                     DataCell(
                       Center(
                         child: IconButton(

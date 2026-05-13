@@ -1,5 +1,7 @@
 import 'package:ciebp_leitor/data/sell_history.dart';
 import 'package:ciebp_leitor/model/history.dart';
+import 'package:ciebp_leitor/util/app_colors.dart';
+import 'package:ciebp_leitor/util/money_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ciebp_leitor/dialog/confirm_dialog.dart';
@@ -33,27 +35,38 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          historyTable(),
-          ElevatedButton(
-            onPressed: () async {
-              bool res = await showConfirmDialog(
-                context,
-                "Atenção!",
-                "Você está prestes a excluir todo o histórico de venda. Essa ação é irreversível. Tem certeza que deseja continuar?",
-              );
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 20, 0, 45),
+            child: Text(
+              "Aqui é exibido todo o histórico de vendas por [ ordem decrescente ]",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight(900), fontSize: 24),
+            ),
+          ),
+          Expanded(flex: 1, child: historyTable()),
+          Container(
+            margin: EdgeInsets.fromLTRB(0, 20, 0, 5),
+            child: ElevatedButton(
+              onPressed: () async {
+                bool resp = await showConfirmDialog(
+                  context,
+                  "Atenção!",
+                  "Você está prestes a excluir todo o histórico de venda. Essa ação é irreversível. Tem certeza que deseja continuar?",
+                );
 
-              print(res);
-              // SellHistory sell = SellHistory();
-              // sell.clearHistory();
+                if (resp) {
+                  SellHistory sell = SellHistory();
+                  sell.clearHistory();
 
-              // setState(() {
-              //   getList();
-              // });
-            },
-            child: Text("Limpar"),
+                  setState(() {
+                    getList();
+                  });
+                }
+              },
+              child: Text("Limpar"),
+            ),
           ),
         ],
       ),
@@ -72,7 +85,7 @@ class _HistoryPageState extends State<HistoryPage> {
               columnSpacing: columnMarginSpace,
               border: TableBorder.all(
                 width: 1,
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
               columns: [
                 tableHead(headText: "Data"),
@@ -90,7 +103,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       ),
                       tableCell(
                         history: history,
-                        dataCellText: "${history.sellValue}",
+                        dataCellText: MoneyFormatter.brl(history.sellValue),
                       ),
                     ],
                   ),
@@ -104,10 +117,7 @@ class _HistoryPageState extends State<HistoryPage> {
       Center(
         child: Text(
           dataCellText,
-          style: TextStyle(
-            fontWeight: FontWeight(300),
-            fontStyle: FontStyle.italic,
-          ),
+          style: TextStyle(fontWeight: FontWeight(300)),
         ),
       ),
     );
@@ -115,6 +125,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
   DataColumn tableHead({required String headText}) {
     return DataColumn(
+      columnWidth: FixedColumnWidth(150),
       headingRowAlignment: MainAxisAlignment.center,
       label: Text(headText, style: TextStyle(fontWeight: FontWeight(900))),
     );
