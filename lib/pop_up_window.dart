@@ -1,4 +1,4 @@
-import 'package:ciebp_leitor/products.dart';
+import 'package:ciebp_leitor/product.dart';
 import 'package:flutter/material.dart';
 
 class PopUpWindow extends StatefulWidget {

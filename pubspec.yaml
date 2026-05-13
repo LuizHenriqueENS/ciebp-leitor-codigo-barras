@@ -1,6 +1,6 @@
 name: ciebp_leitor
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0+1
 
 environment:
@@ -11,11 +11,22 @@ dependencies:
     sdk: flutter
   mobile_scanner: ^7.2.0
   path_provider: ^2.1.5
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.7
 
 flutter:
   uses-material-design: true
+
+flutter_launcher_icons:
+  android: true
+  image_path: "assets/icon.png"
+
+flutter_native_splash:
+  color: "#000000"
+  image: assets/icon.png

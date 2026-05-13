@@ -1,11 +1,11 @@
-import 'package:ciebp_leitor/products.dart';
+import 'package:ciebp_leitor/product.dart';
 
 class Checkout {
   int quantity = 0;
   late Product product;
   double sum = 0;
 
-  Checkout (this.product){
+  Checkout(this.product) {
     addProduct(product);
   }
 

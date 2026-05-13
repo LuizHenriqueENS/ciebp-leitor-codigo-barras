@@ -1,24 +1,23 @@
 import 'package:ciebp_leitor/file_handler.dart';
 import 'package:ciebp_leitor/pop_up_window.dart';
-import 'package:ciebp_leitor/products.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ciebp_leitor/product.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
-class AddProduct extends StatefulWidget {
-  const AddProduct({super.key});
+class DatabasePage extends StatefulWidget {
+  const DatabasePage({super.key});
 
   @override
-  State<AddProduct> createState() => _AddProductState();
+  State<DatabasePage> createState() => _DatabasePageState();
 }
 
-class _AddProductState extends State<AddProduct> {
+class _DatabasePageState extends State<DatabasePage> {
   MobileScannerController controller = MobileScannerController(
     detectionTimeoutMs: 1250,
   );
 
   FileHandler fh = FileHandler();
-  late List<Product> productsDatabase = [];
+  List<Product> productsDatabase = [];
 
   bool showCamera = false;
   bool canRead = true;
@@ -106,7 +105,10 @@ class _AddProductState extends State<AddProduct> {
                   )
                 : SizedBox.expand(
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.black, border: Border.all(width: 1)),
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(width: 1),
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -115,7 +117,11 @@ class _AddProductState extends State<AddProduct> {
                             color: Colors.white,
                             size: 36,
                           ),
-                          Text("Clique para ativar a camera", textAlign: TextAlign.center, style: TextStyle(color: Colors.white),)
+                          Text(
+                            "Clique para ativar a camera",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
@@ -131,7 +137,10 @@ class _AddProductState extends State<AddProduct> {
           child: DataTable(
             clipBehavior: Clip.hardEdge,
             headingTextStyle: TextStyle(fontWeight: FontWeight(900)),
-            dataTextStyle: TextStyle(color: Colors.black, fontWeight: FontWeight(300)),
+            dataTextStyle: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight(300),
+            ),
             border: TableBorder.all(width: 1),
             showCheckboxColumn: false,
             columns: [
@@ -170,11 +179,14 @@ class _AddProductState extends State<AddProduct> {
                               context: context,
                               builder: (BuildContext ctx) {
                                 return AlertDialog(
-                                  title: Text("Remover ${p.productName}?", textAlign: TextAlign.center,),
+                                  title: Text(
+                                    "Remover ${p.productName}?",
+                                    textAlign: TextAlign.center,
+                                  ),
                                   actions: [
-
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         ElevatedButton(
                                           onPressed: () {
@@ -205,7 +217,8 @@ class _AddProductState extends State<AddProduct> {
                               showProducts();
                             });
                           },
-                          icon: Icon(Icons.remove_circle_outlined), color: Colors.red,
+                          icon: Icon(Icons.remove_circle_outlined),
+                          color: Colors.red,
                         ),
                       ),
                     ),

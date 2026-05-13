@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:ciebp_leitor/products.dart';
+import 'package:ciebp_leitor/product.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FileHandler {
@@ -100,8 +100,8 @@ class FileHandler {
   Future<Product?> findByBarcode(String barcode) async {
     List<Product> allProducts = await findAll();
 
-    for(Product p in allProducts){
-      if(p.barCode == barcode){
+    for (Product p in allProducts) {
+      if (p.barCode == barcode) {
         return p;
       }
     }
