@@ -8,10 +8,7 @@ import 'package:flutter/services.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
-  SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.leanBack,
-    overlays: [SystemUiOverlay.top],
-  );
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack, overlays: [SystemUiOverlay.top]);
 
   runApp(MainApp());
 }
@@ -29,15 +26,9 @@ class _MainAppState extends State<MainApp> {
   List<BottomNavigationBarItem> items = [
     BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: "Carrinho"),
 
-    BottomNavigationBarItem(
-      icon: Icon(Icons.history_sharp),
-      label: "Histórico",
-    ),
+    BottomNavigationBarItem(icon: Icon(Icons.history_sharp), label: "Histórico"),
 
-    BottomNavigationBarItem(
-      icon: Icon(Icons.list_alt_sharp),
-      label: "Produtos",
-    ),
+    BottomNavigationBarItem(icon: Icon(Icons.list_alt_sharp), label: "Produtos"),
   ];
 
   @override

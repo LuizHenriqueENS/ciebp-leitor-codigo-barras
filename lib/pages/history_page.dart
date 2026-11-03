@@ -83,10 +83,7 @@ class _HistoryPageState extends State<HistoryPage> {
               showCheckboxColumn: false,
               horizontalMargin: columnMarginSpace / 2,
               columnSpacing: columnMarginSpace,
-              border: TableBorder.all(
-                width: 1,
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
+              border: TableBorder.all(width: 1, borderRadius: BorderRadius.all(Radius.circular(5))),
               columns: [
                 tableHead(headText: "Data"),
                 tableHead(headText: "Valor"),
@@ -97,14 +94,9 @@ class _HistoryPageState extends State<HistoryPage> {
                     cells: [
                       tableCell(
                         history: history,
-                        dataCellText: DateFormat(
-                          "dd/MM/yyyy - HH:mm",
-                        ).format(history.sellDate.toLocal()),
+                        dataCellText: DateFormat("dd/MM/yyyy - HH:mm").format(history.sellDate.toLocal()),
                       ),
-                      tableCell(
-                        history: history,
-                        dataCellText: MoneyFormatter.brl(history.sellValue),
-                      ),
+                      tableCell(history: history, dataCellText: MoneyFormatter.brl(history.sellValue)),
                     ],
                   ),
               ],
@@ -115,10 +107,7 @@ class _HistoryPageState extends State<HistoryPage> {
   DataCell tableCell({required History history, required String dataCellText}) {
     return DataCell(
       Center(
-        child: Text(
-          dataCellText,
-          style: TextStyle(fontWeight: FontWeight(300)),
-        ),
+        child: Text(dataCellText, style: TextStyle(fontWeight: FontWeight(300))),
       ),
     );
   }

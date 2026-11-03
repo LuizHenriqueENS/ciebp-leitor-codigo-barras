@@ -14,9 +14,7 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
-  MobileScannerController? controllerScanner = MobileScannerController(
-    detectionTimeoutMs: 3000,
-  );
+  MobileScannerController? controllerScanner = MobileScannerController(detectionTimeoutMs: 1000);
   String barCode = "";
 
   ScrollController scrollViewController = ScrollController();
@@ -96,18 +94,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
                             headingRowAlignment: MainAxisAlignment.center,
                             label: Center(child: Text("Qtd")),
                           ),
-                          DataColumn(
-                            headingRowAlignment: MainAxisAlignment.center,
-                            label: Text("Produto"),
-                          ),
-                          DataColumn(
-                            headingRowAlignment: MainAxisAlignment.center,
-                            label: Text("Preço Un."),
-                          ),
-                          DataColumn(
-                            headingRowAlignment: MainAxisAlignment.center,
-                            label: Text("Sub-Total"),
-                          ),
+                          DataColumn(headingRowAlignment: MainAxisAlignment.center, label: Text("Produto")),
+                          DataColumn(headingRowAlignment: MainAxisAlignment.center, label: Text("Preço Un.")),
+                          DataColumn(headingRowAlignment: MainAxisAlignment.center, label: Text("Sub-Total")),
                         ],
                         rows: [
                           for (Product p in itemsOrders.keys)
@@ -115,37 +104,17 @@ class _CheckoutPageState extends State<CheckoutPage> {
                               onSelectChanged: ((e) {
                                 itemsOrders[p] = (itemsOrders[p] ?? 0) - 1;
                                 if (itemsOrders[p]! <= 0) {
-                                  itemsOrders.removeWhere(
-                                    (key, value) => key == p,
-                                  );
+                                  itemsOrders.removeWhere((key, value) => key == p);
                                 }
                                 setState(() {
                                   itemsOrders;
                                 });
                               }),
                               cells: [
-                                DataCell(
-                                  Center(
-                                    child: Text(itemsOrders[p].toString()),
-                                  ),
-                                ),
+                                DataCell(Center(child: Text(itemsOrders[p].toString()))),
                                 DataCell(Center(child: Text(p.productName))),
-                                DataCell(
-                                  Center(
-                                    child: Text(
-                                      MoneyFormatter.brl(p.productPrice),
-                                    ),
-                                  ),
-                                ),
-                                DataCell(
-                                  Center(
-                                    child: Text(
-                                      MoneyFormatter.brl(
-                                        p.productPrice * itemsOrders[p]!,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                DataCell(Center(child: Text(MoneyFormatter.brl(p.productPrice)))),
+                                DataCell(Center(child: Text(MoneyFormatter.brl(p.productPrice * itemsOrders[p]!)))),
                               ],
                             ),
                         ],
@@ -161,11 +130,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 children: [
                   Text(
                     MoneyFormatter.brl(calculateTotal()),
-                    style: TextStyle(
-                      fontWeight: FontWeight(900),
-                      color: Colors.green,
-                      fontSize: 34,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight(900), color: Colors.green, fontSize: 34),
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -173,12 +138,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         return;
                       }
                       SellHistory history = SellHistory();
-                      await history.saveHistory(
-                        History(
-                          sellDate: DateTime.now(),
-                          sellValue: calculateTotal(),
-                        ),
-                      );
+                      await history.saveHistory(History(sellDate: DateTime.now(), sellValue: calculateTotal()));
 
                       setState(() {
                         itemsOrders.clear();
